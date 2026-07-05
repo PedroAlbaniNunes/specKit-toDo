@@ -31,4 +31,5 @@
 
 ## Notes
 
+- The scope now explicitly covers date-only task registration and excludes time-based reminders.
 - Items marked incomplete require spec updates before `/speckit.clarify` or `/speckit.plan`

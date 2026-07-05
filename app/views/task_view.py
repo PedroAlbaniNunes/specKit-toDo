@@ -13,10 +13,10 @@ class TaskView:
 
         rows = []
         for task in tasks:
-            reminder = task.reminder_at.strftime("%d/%m/%Y %H:%M") if task.reminder_at else "Sem lembrete"
+            due_date = task.due_date.strftime("%d/%m/%Y") if task.due_date else "Sem data"
             title = html.escape(task.title)
             rows.append(
-                f"<li><strong>{title}</strong> — {reminder} — {task.status}"
+                f"<li><strong>{title}</strong> — {due_date} — {task.status}"
                 f"<form method=\"post\" action=\"/tasks/{task.id}\" style=\"display:inline; margin-left:0.5rem;\">"
                 f"<button type=\"submit\">Remover</button></form></li>"
             )

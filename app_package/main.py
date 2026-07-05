@@ -1,13 +1,15 @@
 from __future__ import annotations
 
-from datetime import datetime
+from datetime import date, datetime
+from pathlib import Path
 
 from flask import Flask, jsonify, redirect, render_template, request, url_for
 
 from app.controllers.task_controller import TaskController
 from app.views.task_view import TaskView
 
-app = Flask(__name__)
+template_folder = Path(__file__).resolve().parent.parent / "app" / "templates"
+app = Flask(__name__, template_folder=str(template_folder))
 controller = TaskController()
 view = TaskView()
 
@@ -33,9 +35,9 @@ def index() -> str:
 @app.route("/tasks", methods=["POST"])
 def create_task() -> str:
     title = request.form.get("title", "")
-    reminder_raw = request.form.get("reminder_at")
-    reminder_at = datetime.fromisoformat(reminder_raw) if reminder_raw else None
-    created, message, _ = controller.create_task(title, reminder_at)
+    due_date_raw = request.form.get("due_date")
+    due_date = date.fromisoformat(due_date_raw) if due_date_raw else None
+    created, message, _ = controller.create_task(title, due_date)
     notified, tasks, tasks_html = _evaluate_and_prepare()
     if created:
         return render_template(

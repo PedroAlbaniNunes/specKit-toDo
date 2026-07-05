@@ -1,5 +1,5 @@
 from dataclasses import dataclass, field
-from datetime import datetime
+from datetime import date, datetime
 from typing import Optional
 
 
@@ -7,19 +7,19 @@ from typing import Optional
 class Task:
     id: str
     title: str
-    reminder_at: Optional[datetime] = None
+    due_date: Optional[date] = None
     created_at: datetime = field(default_factory=datetime.now)
     status: str = "pending"
 
     @classmethod
     def from_dict(cls, data: dict) -> "Task":
-        reminder_at = data.get("reminder_at")
-        if reminder_at:
-            reminder_at = datetime.fromisoformat(reminder_at)
+        due_date = data.get("due_date")
+        if due_date:
+            due_date = date.fromisoformat(due_date)
         return cls(
             id=data["id"],
             title=data["title"],
-            reminder_at=reminder_at,
+            due_date=due_date,
             created_at=datetime.fromisoformat(data["created_at"]),
             status=data.get("status", "pending"),
         )
@@ -28,7 +28,7 @@ class Task:
         return {
             "id": self.id,
             "title": self.title,
-            "reminder_at": self.reminder_at.isoformat() if self.reminder_at else None,
+            "due_date": self.due_date.isoformat() if self.due_date else None,
             "created_at": self.created_at.isoformat(),
             "status": self.status,
         }

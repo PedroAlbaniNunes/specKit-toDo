@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from datetime import datetime
+from datetime import date
 from typing import List, Optional
 
 from app.models.task import Task
@@ -13,11 +13,11 @@ class TaskService:
     def list_tasks(self) -> List[Task]:
         return list(self._tasks)
 
-    def create_task(self, title: str, reminder_at: Optional[datetime]) -> Task:
+    def create_task(self, title: str, due_date: Optional[date]) -> Task:
         task = Task(
             id=self._next_id(),
             title=title.strip(),
-            reminder_at=reminder_at,
+            due_date=due_date,
         )
         self._tasks.append(task)
         return task
@@ -28,13 +28,7 @@ class TaskService:
         return len(self._tasks) != initial_length
 
     def evaluate_reminders(self) -> List[Task]:
-        now = datetime.now()
-        notified: List[Task] = []
-        for task in self._tasks:
-            if task.status == "pending" and task.reminder_at and task.reminder_at <= now:
-                task.status = "notified"
-                notified.append(task)
-        return notified
+        return []
 
     def _next_id(self) -> str:
         return str(len(self._tasks) + 1)

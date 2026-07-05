@@ -10,38 +10,38 @@
 
 ## Phase 1: Setup (Shared Infrastructure)
 
-**Purpose**: Create the base project structure for the MVC application and MkDocs documentation.
+**Purpose**: Create the base project structure for the MVC application and documentation updates.
 
 - [ ] T001 Create the app package structure for controllers, models, views, templates, and services
 - [ ] T002 [P] Create the MkDocs configuration and documentation folder structure under docs/
-- [ ] T003 [P] Create the initial Flask/FastAPI app entrypoint and basic project configuration
+- [ ] T003 [P] Create the initial Flask app entrypoint and basic project configuration
 
 ---
 
 ## Phase 2: Foundational (Blocking Prerequisites)
 
-**Purpose**: Implement the in-memory model, controller boundaries, and reminder orchestration logic.
+**Purpose**: Implement the in-memory model, controller boundaries, and date-only task handling.
 
-- [ ] T004 Create the task model and validation rules for title and reminder data
+- [ ] T004 Create the task model and validation rules for title and optional date-only values
 - [ ] T005 [P] Implement the in-memory task repository/store for creation and deletion operations
-- [ ] T006 [P] Implement the controller logic for creating, listing, and removing tasks
-- [ ] T007 Implement reminder evaluation logic that checks due tasks and triggers notifications
+- [ ] T006 [P] Implement the controller logic for creating, listing, and removing tasks without time-based reminder logic
+- [ ] T007 Remove reminder-by-time evaluation logic and keep only date-based task data handling
 
-**Checkpoint**: The MVC core can create, list, remove, and evaluate reminders before story-specific UI work.
+**Checkpoint**: The MVC core can create, list, and remove tasks using date-only data before UI work.
 
 ---
 
-## Phase 3: User Story 1 - Cadastrar tarefas com lembrete (Priority: P1) 🎯 MVP
+## Phase 3: User Story 1 - Cadastrar tarefas com data (Priority: P1) 🎯 MVP
 
-**Goal**: Allow the user to add tasks with an optional reminder.
+**Goal**: Allow the user to add tasks with an optional date.
 
-**Independent Test**: A user can open the app, add a task, and see it appear with the configured reminder data.
+**Independent Test**: A user can open the app, add a task, and see it appear with the configured date.
 
 ### Implementation for User Story 1
 
-- [ ] T008 [US1] Build the task creation form in the view/template layer
-- [ ] T009 [US1] Connect the form submission to the controller and repository
-- [ ] T010 [US1] Display validation feedback for missing titles or invalid reminder values
+- [ ] T008 [US1] Update the task creation form in the view/template layer to collect a date instead of a datetime field
+- [ ] T009 [US1] Connect the form submission to the controller and repository using the new date-only input
+- [ ] T010 [US1] Display validation feedback for missing titles or invalid date values
 - [ ] T011 [US1] Persist task data in memory and reflect it in the rendered list
 
 **Checkpoint**: User Story 1 is fully functional and independently testable.
@@ -64,17 +64,17 @@
 
 ---
 
-## Phase 5: User Story 3 - Notificar lembretes (Priority: P2)
+## Phase 5: User Story 3 - Visualizar a data associada à tarefa (Priority: P2)
 
-**Goal**: Notify the user when a reminder time is reached.
+**Goal**: Show the task date clearly in the UI.
 
-**Independent Test**: A user can create a task with a reminder and observe a visible notification when the time arrives.
+**Independent Test**: A user can create a task with a date and confirm that the date is displayed correctly in the list.
 
 ### Implementation for User Story 3
 
-- [ ] T015 [US3] Implement a visible reminder alert in the UI layer
-- [ ] T016 [US3] Trigger reminder evaluation periodically or on page refresh according to the selected approach
-- [ ] T017 [US3] Mark reminded tasks appropriately so repeated notifications are avoided
+- [ ] T015 [US3] Update the task rendering logic in the view to show the date only
+- [ ] T016 [US3] Ensure tasks with no date are displayed clearly as having no date assigned
+- [ ] T017 [US3] Keep the task list consistent across create and reload flows
 
 **Checkpoint**: User Story 3 is independently functional.
 
@@ -82,8 +82,8 @@
 
 ## Phase 6: Polish & Cross-Cutting Concerns
 
-**Purpose**: Improve the deployment readiness, documentation, and overall usability.
+**Purpose**: Improve documentation readiness and overall usability.
 
 - [ ] T018 [P] Add documentation pages for architecture and usage in docs/docs/
 - [ ] T019 [P] Add deployment notes for Render/Railway and GitHub Pages/Vercel in docs/docs/
-- [ ] T020 Validate the end-to-end flow for create, remove, and reminder notification in the working app
+- [ ] T020 Validate the end-to-end flow for create, remove, and date-only task display in the working app
