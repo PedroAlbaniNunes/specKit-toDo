@@ -11,6 +11,9 @@ class Task:
     created_at: datetime = field(default_factory=datetime.now)
     status: str = "pending"
 
+    def is_completed(self) -> bool:
+        return self.status == "completed"
+
     @classmethod
     def from_dict(cls, data: dict) -> "Task":
         due_date = data.get("due_date")

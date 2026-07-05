@@ -82,5 +82,26 @@ def remove_task(task_id: str):
     )
 
 
+@app.route("/tasks/<task_id>/complete", methods=["POST"])
+def complete_task(task_id: str):
+    completed, message = controller.complete_task(task_id)
+    notified, tasks, tasks_html = _evaluate_and_prepare()
+    if completed:
+        return render_template(
+            "index.html",
+            tasks_html=tasks_html,
+            error=None,
+            success="Tarefa concluída com sucesso.",
+            notifications=notified,
+        )
+    return render_template(
+        "index.html",
+        tasks_html=tasks_html,
+        error=message,
+        success=None,
+        notifications=notified,
+    )
+
+
 if __name__ == "__main__":
     app.run(debug=True)

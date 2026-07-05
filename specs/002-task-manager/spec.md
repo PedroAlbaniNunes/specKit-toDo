@@ -6,7 +6,7 @@
 
 **Status**: Draft
 
-**Input**: User description: "O sistema é um gerenciador de tarefas (To-Do List). Os requisitos funcionais primários são: 1. Cadastrar novas tarefas com título e data opcional; 2. Remover tarefas existentes; 3. Exibir a data associada à tarefa na lista."
+**Input**: User description: "O sistema é um gerenciador de tarefas (To-Do List). Os requisitos funcionais primários são: 1. Cadastrar novas tarefas com título e data opcional; 2. Remover tarefas existentes; 3. Exibir a data associada à tarefa na lista; 4. Cada tarefa deve ter um status (Pendente ou Concluída); 5. O usuário deve poder concluir tarefas pendentes sem removê-las; 6. Tarefas concluídas devem ter um visual distinto na interface."
 
 ## User Scenarios & Testing *(mandatory)*
 
@@ -56,11 +56,27 @@ O usuário deve conseguir identificar rapidamente a data relacionada a cada tare
 
 ---
 
+### User Story 4 - Gerenciar status da tarefa (Priority: P1)
+
+O usuário deve conseguir marcar uma tarefa como concluída sem removê-la da lista.
+
+**Why this priority**: O status melhora a organização da lista e permite acompanhar o progresso das tarefas.
+
+**Independent Test**: Pode ser testado ao concluir uma tarefa pendente e confirmar que ela continua registrada, mas com status atualizado e visual diferente.
+
+**Acceptance Scenarios**:
+
+1. **Given** que existe uma tarefa pendente, **When** o usuário clica no botão de concluir, **Then** o status da tarefa muda para concluída.
+2. **Given** que uma tarefa está concluída, **When** o usuário visualiza a lista, **Then** ela é exibida com um estilo visual distinto das tarefas pendentes.
+
+---
+
 ### Edge Cases
 
 - O que acontece se o usuário tentar cadastrar uma tarefa sem título?
 - O que acontece se uma tarefa for criada sem data?
 - O que acontece se a data selecionada for anterior à data atual?
+- O que acontece se o usuário tentar concluir uma tarefa já concluída?
 
 ## Requirements *(mandatory)*
 
@@ -73,10 +89,13 @@ O usuário deve conseguir identificar rapidamente a data relacionada a cada tare
 - **FR-005**: O sistema MUST impedir o cadastro de tarefas sem título ou com título composto apenas por espaços.
 - **FR-006**: O sistema MUST indicar claramente quando uma tarefa não possui data associada.
 - **FR-007**: O sistema MUST manter as tarefas atualizadas após remoção e após recarregar a página.
+- **FR-008**: O sistema MUST associar a cada tarefa um status com valores de "Pendente" ou "Concluída".
+- **FR-009**: O sistema MUST permitir que o usuário conclua uma tarefa pendente sem removê-la do registro.
+- **FR-010**: O sistema MUST apresentar visualmente as tarefas concluídas de forma distinta das pendentes.
 
 ### Key Entities
 
-- **Tarefa**: Representa uma atividade do usuário, com título, opcionalmente uma data associada e estado de ativo ou concluído.
+- **Tarefa**: Representa uma atividade do usuário, com título, opcionalmente uma data associada e um status de "Pendente" ou "Concluída".
 
 ## Success Criteria *(mandatory)*
 
@@ -85,7 +104,8 @@ O usuário deve conseguir identificar rapidamente a data relacionada a cada tare
 - **SC-001**: Usuários conseguem cadastrar uma tarefa em até 10 segundos em uma interação simples.
 - **SC-002**: Usuários conseguem remover uma tarefa sem necessidade de instruções adicionais.
 - **SC-003**: Usuários conseguem identificar a data associada a uma tarefa sem dificuldade.
-- **SC-004**: O sistema mantém a lista de tarefas atualizada após remoção e recarregamento da página.
+- **SC-004**: Usuários conseguem concluir uma tarefa pendente sem removê-la da lista.
+- **SC-005**: O sistema mantém a lista de tarefas atualizada após remoção, conclusão e recarregamento da página.
 
 ## Assumptions
 

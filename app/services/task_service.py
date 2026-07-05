@@ -27,6 +27,13 @@ class TaskService:
         self._tasks = [task for task in self._tasks if task.id != task_id]
         return len(self._tasks) != initial_length
 
+    def complete_task(self, task_id: str) -> bool:
+        for task in self._tasks:
+            if task.id == task_id:
+                task.status = "completed"
+                return True
+        return False
+
     def evaluate_reminders(self) -> List[Task]:
         return []
 

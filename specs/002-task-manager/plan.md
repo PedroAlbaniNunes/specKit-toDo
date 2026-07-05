@@ -1,41 +1,32 @@
-# Implementation Plan: [FEATURE]
+# Implementation Plan: Task Manager UI Modernization
 
-**Branch**: `[###-feature-name]` | **Date**: [DATE] | **Spec**: [link]
+**Branch**: `002-task-manager` | **Date**: 2026-07-05 | **Spec**: [spec.md](spec.md)
 
-**Input**: Feature specification from `/specs/[###-feature-name]/spec.md`
-
-**Note**: This template is filled in by the `/speckit.plan` command. See `.specify/templates/plan-template.md` for the execution workflow.
+**Input**: Feature specification from `/specs/002-task-manager/spec.md`
 
 ## Summary
 
-Implementar um gerenciador de tarefas em uma arquitetura MVC, com persistência temporária em memória e suporte a lembretes visuais. O projeto deve manter a aplicação e a documentação técnica no mesmo repositório, facilitando hospedagem e publicação em serviços gratuitos.
-
+Modernizar a interface do usuário do gerenciador de tarefas para oferecer uma experiência visual mais limpa, atrativa e responsiva. A mudança deve preservar a arquitetura MVC atual, concentrando-se na camada de view/template com estilo moderno, cards para as tarefas, botões semânticos e microinterações de hover.
 
 ## Technical Context
 
-<!--
-  ACTION REQUIRED: Replace the content in this section with the technical details
-  for the project. The structure here is presented in advisory capacity to guide
-  the iteration process.
--->
+**Language/Version**: Python 3.11+ com Flask
 
-**Language/Version**: Python 3.11+ para a aplicação web e documentação MkDocs
+**Primary Dependencies**: Flask, pytest
 
-**Primary Dependencies**: Flask ou FastAPI, MkDocs, Material for MkDocs
-
-**Storage**: Persistência em memória (lista em variável/array do servidor); sem banco de dados
+**Storage**: Persistência em memória, sem mudança no modelo atual
 
 **Testing**: pytest para testes de backend e validação manual da interface
 
-**Target Platform**: Aplicação web hospedável em Render/Railway; documentação em GitHub Pages ou Vercel
+**Target Platform**: Aplicação web simples hospedável localmente ou em serviços gratuitos
 
 **Project Type**: Web application with MVC structure
 
-**Performance Goals**: Resposta rápida para cadastro, remoção e verificação de lembretes
+**Performance Goals**: Resposta rápida para renderização da interface e ações de cadastro/remoção
 
-**Constraints**: Sem banco de dados; persistência temporária; implantação simples em serviços gratuitos
+**Constraints**: Manter a implementação simples, sem dependências pesadas; usar CSS puro ou um framework leve via CDN
 
-**Scale/Scope**: Escopo de uma aplicação simples de gerenciamento de tarefas com lembretes básicos
+**Scale/Scope**: Ajuste visual da interface existente, sem impactar o fluxo de negócio principal
 
 ## Constitution Check
 
@@ -53,13 +44,13 @@ Implementar um gerenciador de tarefas em uma arquitetura MVC, com persistência 
 ### Documentation (this feature)
 
 ```text
-specs/[###-feature]/
-├── plan.md              # This file (/speckit.plan command output)
-├── research.md          # Phase 0 output (/speckit.plan command)
-├── data-model.md        # Phase 1 output (/speckit.plan command)
-├── quickstart.md        # Phase 1 output (/speckit.plan command)
-├── contracts/           # Phase 1 output (/speckit.plan command)
-└── tasks.md             # Phase 2 output (/speckit.tasks command - NOT created by /speckit.plan)
+specs/002-task-manager/
+├── plan.md
+├── research.md
+├── data-model.md
+├── quickstart.md
+├── contracts/
+└── tasks.md
 ```
 
 ### Source Code (repository root)
@@ -77,17 +68,30 @@ docs/
 └── docs/
 
 tests/
-├── unit/
-└── integration/
+└── test_task_service.py
 ```
 
-**Structure Decision**: The application will follow an MVC structure with separate folders for controllers, models, views, templates, and services. The documentation will live in the same repository under docs/ and be published with MkDocs, keeping the app and docs in a single mono-repo for simpler deployment.
+**Structure Decision**: The UI refresh will remain within the existing MVC structure. The HTML template will be enhanced with modern CSS, while the controller and service layers continue handling business logic without changes unless required for rendering support.
+
+## Phase 0: Research and Design
+
+- Confirm the current template structure and the data passed from the Flask route.
+- Decide between CSS puro ou Bootstrap via CDN for the visual refresh.
+- Define the visual structure for the page: header, form, feedback messages, task cards, and action buttons.
+
+## Phase 1: Implementation Plan
+
+1. Update the HTML template in [app/templates/index.html](app/templates/index.html) to use a more modern layout.
+2. Add styling for container, form, cards, buttons, spacing, shadows, and hover effects.
+3. Ensure task rendering from [app/views/task_view.py](app/views/task_view.py) produces card-like HTML structure.
+4. Preserve existing routes and controller behavior while adapting the presentation layer.
+5. Validate the experience by running the app and checking the rendered UI.
+
+## Phase 2: Validation
+
+- Run the test suite to ensure no regressions.
+- Open the application locally and verify that the layout displays tasks as cards with styling and responsive spacing.
 
 ## Complexity Tracking
 
-> **Fill ONLY if Constitution Check has violations that must be justified**
-
-| Violation | Why Needed | Simpler Alternative Rejected Because |
-|-----------|------------|-------------------------------------|
-| [e.g., 4th project] | [current need] | [why 3 projects insufficient] |
-| [e.g., Repository pattern] | [specific problem] | [why direct DB access insufficient] |
+No major complexity concerns are expected for this UI-focused change.

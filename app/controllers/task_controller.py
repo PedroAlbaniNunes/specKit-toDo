@@ -27,5 +27,11 @@ class TaskController:
             return False, "Tarefa não encontrada."
         return True, None
 
+    def complete_task(self, task_id: str) -> Tuple[bool, Optional[str]]:
+        completed = self.service.complete_task(task_id)
+        if not completed:
+            return False, "Tarefa não encontrada."
+        return True, None
+
     def evaluate_reminders(self) -> List[Task]:
         return self.service.evaluate_reminders()

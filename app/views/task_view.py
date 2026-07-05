@@ -9,15 +9,30 @@ from app.models.task import Task
 class TaskView:
     def render_tasks(self, tasks: List[Task]) -> str:
         if not tasks:
-            return "<p>Nenhuma tarefa cadastrada.</p>"
+            return '<div class="empty-state">Nenhuma tarefa cadastrada.</div>'
 
-        rows = []
+        cards = []
         for task in tasks:
             due_date = task.due_date.strftime("%d/%m/%Y") if task.due_date else "Sem data"
             title = html.escape(task.title)
-            rows.append(
-                f"<li><strong>{title}</strong> — {due_date} — {task.status}"
-                f"<form method=\"post\" action=\"/tasks/{task.id}\" style=\"display:inline; margin-left:0.5rem;\">"
-                f"<button type=\"submit\">Remover</button></form></li>"
+            status_label = "Concluída" if task.is_completed() else "Pendente"
+            status_class = "completed" if task.is_completed() else "pending"
+            action_button = "" if task.is_completed() else (
+                f'<form method="post" action="/tasks/{task.id}/complete" class="inline-form">'
+                f'<button type="submit" class="btn btn-success">Concluir</button></form>'
             )
-        return "<ul>" + "".join(rows) + "</ul>"
+            cards.append(
+                f'<article class="task-card {status_class}">'
+                f'<div class="task-header">'
+                f'<h3>{title}</h3>'
+                f'<span class="status-badge {status_class}">{status_label}</span>'
+                f'</div>'
+                f'<p class="task-date">📅 {due_date}</p>'
+                f'<div class="task-actions">'
+                f'{action_button}'
+                f'<form method="post" action="/tasks/{task.id}" class="inline-form">'
+                f'<button type="submit" class="btn btn-danger">Excluir</button></form>'
+                f'</div>'
+                f'</article>'
+            )
+        return '<div class="task-list">' + ''.join(cards) + '</div>'

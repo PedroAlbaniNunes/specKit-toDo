@@ -20,14 +20,14 @@
 
 ## Phase 2: Foundational (Blocking Prerequisites)
 
-**Purpose**: Implement the in-memory model, controller boundaries, and date-only task handling.
+**Purpose**: Implement the in-memory model, controller boundaries, and task status handling.
 
-- [ ] T004 Create the task model and validation rules for title and optional date-only values
-- [ ] T005 [P] Implement the in-memory task repository/store for creation and deletion operations
-- [ ] T006 [P] Implement the controller logic for creating, listing, and removing tasks without time-based reminder logic
+- [ ] T004 Create the task model and validation rules for title, optional date, and status values
+- [ ] T005 [P] Implement the in-memory task repository/store for creation, deletion, and status updates
+- [ ] T006 [P] Implement the controller logic for creating, listing, removing, and updating task status
 - [ ] T007 Remove reminder-by-time evaluation logic and keep only date-based task data handling
 
-**Checkpoint**: The MVC core can create, list, and remove tasks using date-only data before UI work.
+**Checkpoint**: The MVC core can create, list, remove, and update task status before UI work.
 
 ---
 
@@ -64,26 +64,43 @@
 
 ---
 
-## Phase 5: User Story 3 - Visualizar a data associada à tarefa (Priority: P2)
+## Phase 5: User Story 3 - Gerenciar status e concluir tarefas (Priority: P1)
 
-**Goal**: Show the task date clearly in the UI.
+**Goal**: Allow the user to mark tasks as completed without deleting them.
 
-**Independent Test**: A user can create a task with a date and confirm that the date is displayed correctly in the list.
+**Independent Test**: A user can open the app, click the conclude action on a pending task, and see the status change while the task remains stored.
 
 ### Implementation for User Story 3
 
-- [ ] T015 [US3] Update the task rendering logic in the view to show the date only
-- [ ] T016 [US3] Ensure tasks with no date are displayed clearly as having no date assigned
-- [ ] T017 [US3] Keep the task list consistent across create and reload flows
+- [ ] T015 [US3] Add a task status field to the model and serialization logic
+- [ ] T016 [US3] Add a controller method to update the status of a task
+- [ ] T017 [US3] Add a new route in the Flask application to handle status updates from the UI
 
 **Checkpoint**: User Story 3 is independently functional.
 
 ---
 
-## Phase 6: Polish & Cross-Cutting Concerns
+## Phase 6: User Story 4 - Modernizar a interface visual (Priority: P2)
+
+**Goal**: Refactor the task list UI into a modern card-based experience.
+
+**Independent Test**: A user can view the app and see styled task cards with distinct pending/completed appearance and interactive buttons.
+
+### Implementation for User Story 4
+
+- [ ] T018 [US4] Refactor the HTML template to build a modern layout with a form section and a task card list
+- [ ] T019 [US4] Replace the current basic styling with modern CSS including rounded cards, shadows, spacing, and hover effects
+- [ ] T020 [US4] Update the task rendering logic to display pending and completed tasks with different visual states
+- [ ] T021 [US4] Ensure buttons for conclude and remove use semantic colors and accessible labels
+
+**Checkpoint**: The UI is modernized and visually distinguishes pending and completed tasks.
+
+---
+
+## Phase 7: Polish & Cross-Cutting Concerns
 
 **Purpose**: Improve documentation readiness and overall usability.
 
-- [ ] T018 [P] Add documentation pages for architecture and usage in docs/docs/
-- [ ] T019 [P] Add deployment notes for Render/Railway and GitHub Pages/Vercel in docs/docs/
-- [ ] T020 Validate the end-to-end flow for create, remove, and date-only task display in the working app
+- [ ] T022 [P] Add documentation pages for architecture and usage in docs/docs/
+- [ ] T023 [P] Add deployment notes for Render/Railway and GitHub Pages/Vercel in docs/docs/
+- [ ] T024 Validate the end-to-end flow for create, remove, conclude, and visual rendering in the working app
