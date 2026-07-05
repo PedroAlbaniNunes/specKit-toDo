@@ -1,0 +1,16 @@
+site_name: Task Manager MVC
+site_description: Documentação do gerenciador de tarefas MVC
+site_author: Spec Kit
+nav:
+  - Início: index.md
+  - Arquitetura: architecture.md
+  - Uso: usage.md
+  - Implantação: deployment.md
+theme:
+  name: material
+  language: pt
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: blue
+plugins: []

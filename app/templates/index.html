@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Task Manager MVC</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 2rem; line-height: 1.5; }
+    form { display: flex; flex-direction: column; gap: 0.5rem; max-width: 360px; }
+    input, button { padding: 0.6rem; }
+    .message { margin-top: 0.75rem; color: #b91c1c; }
+    .success { color: #0f766e; }
+    .alert { background: #fef3c7; border: 1px solid #f59e0b; padding: 0.8rem; border-radius: 0.3rem; margin-bottom: 1rem; }
+  </style>
+</head>
+<body>
+  <h1>Task Manager MVC</h1>
+  <form method="post" action="/tasks">
+    <input name="title" placeholder="Título da tarefa" required>
+    <input name="reminder_at" type="datetime-local" placeholder="Lembrete">
+    <button type="submit">Adicionar tarefa</button>
+  </form>
+
+  {% if error %}<p class="message">{{ error }}</p>{% endif %}
+  {% if success %}<p class="success">{{ success }}</p>{% endif %}
+
+  {% if notifications %}
+    <div class="alert">
+      <strong>Lembretes disparados:</strong>
+      <ul>
+        {% for task in notifications %}
+          <li>{{ task.title }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+
+  <h2>Tarefas</h2>
+  {{ tasks_html | safe }}
+</body>
+</html>
